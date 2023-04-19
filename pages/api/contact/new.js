@@ -1,4 +1,5 @@
 import { client } from '@/utils/db-connect';
+const mongodbDatabase = process.env.MONGODB_DATABASE;
 
 async function newContactHandler(req, res) {
   if (req.method === 'POST') {
@@ -41,7 +42,7 @@ async function newContactHandler(req, res) {
       return;
     }
     try {
-      const database = client.db('shawn-blog');
+      const database = client.db(mongodbDatabase);
       const contacts = database.collection('contacts');
       const result = await contacts.insertOne(newContactInfo);
       res.status(201).json({

@@ -1,6 +1,9 @@
 const { MongoClient, ServerApiVersion } = require('mongodb');
+const mongodbUser = process.env.MONGODB_USERNAME;
 const mongoPassword = process.env.MONGODB_PASSWORD;
-const uri = `mongodb+srv://billy:${mongoPassword}@cluster0.wwwy1.mongodb.net/?retryWrites=true&w=majority`;
+const mongodbCluster = process.env.MONGODB_CLUSTER;
+
+const uri = `mongodb+srv://${mongodbUser}:${mongoPassword}@${mongodbCluster}.wwwy1.mongodb.net/?retryWrites=true&w=majority`;
 
 // Create a MongoClient with a MongoClientOptions object to set the Stable API version
 export const client = new MongoClient(uri, {

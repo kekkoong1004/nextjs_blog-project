@@ -1,6 +1,10 @@
 import Head from 'next/head';
 import PostContent from '@/components/post-details/post-content';
-import { getPostData, getAllFiles } from '@/utils/post-utils';
+import {
+  getPostData,
+  getAllFiles,
+  removeFileExtension,
+} from '@/utils/post-utils';
 // import { ReactMarkdown } from 'react-markdown';
 
 function PostDetailPage(props) {
@@ -23,6 +27,7 @@ function PostDetailPage(props) {
 
 export async function getStaticProps(context) {
   const { slug } = context.params;
+  console.log('slug-name : ', slug);
   const fileWithETS = `${slug}.md`;
 
   const fileData = getPostData(fileWithETS);
@@ -44,7 +49,10 @@ export async function getStaticProps(context) {
 
 export function getStaticPaths() {
   const allFilesName = getAllFiles();
-  const allFilePaths = allFilesName.map(path => ({ params: { slug: path } }));
+  const allFilePaths = allFilesName.map(path => ({
+    params: { slug: removeFileExtension(path) },
+  }));
+  console.log('all file paths: ', allFilePaths);
   return {
     fallback: true,
     paths: allFilePaths,

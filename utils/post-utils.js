@@ -39,6 +39,6 @@ export const getAllFiles = () => {
   return allPostsFileName;
 };
 
-function removeFileExtension(fileName) {
+export function removeFileExtension(fileName) {
   return fileName.replace(/\.[^.]+$/, '');
 }
